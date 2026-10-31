@@ -1,0 +1,6 @@
+{
+  "name": "SnapSolve AI",
+  "description": "Instant AI-powered error screenshot analyzer and troubleshooter. Upload or paste screenshots of mobile apps, banking, websites, software, and device errors to get step-by-step solutions in English, Urdu, and Hindi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
