@@ -1,0 +1,33 @@
+# ==============================================================================
+# SnapSolve AI - Hostinger LiteSpeed / Apache Configuration
+# ==============================================================================
+
+# Enable Passenger for Hostinger Node.js Application Manager (if using Passenger)
+<IfModule mod_passenger.c>
+    PassengerAppRoot /home/username/domains/yourdomain.com/public_html
+    PassengerBaseURI /
+    PassengerNodejs /usr/bin/node
+    PassengerAppType node
+    PassengerStartupFile server.js
+</IfModule>
+
+# Reverse Proxy fallback (if Hostinger runs Node.js on a local port like 3000)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # If the requested file or directory exists in dist, serve it directly
+    RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f
+    RewriteRule ^(.*)$ /dist/$1 [L]
+
+    # Otherwise forward to Node.js backend if proxying is enabled
+    # RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

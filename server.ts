@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI, Type } from '@google/genai';
@@ -53,6 +54,17 @@ app.get('/api/health', (_req, res) => {
     cachedAnalyses: analysisCache.size,
     timestamp: new Date().toISOString(),
   });
+});
+
+// Download Hostinger production zip package
+app.get('/api/download-hostinger-zip', (_req, res) => {
+  const zipPath = path.resolve(__dirname, 'snapsolve-hostinger-production.zip');
+  if (fs.existsSync(zipPath)) {
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', 'attachment; filename="snapsolve-hostinger-production.zip"');
+    return res.sendFile(zipPath);
+  }
+  return res.status(404).json({ error: 'Production zip file not found' });
 });
 
 // Analyze screenshots endpoint (supports 1 to 4 screenshots simultaneously)

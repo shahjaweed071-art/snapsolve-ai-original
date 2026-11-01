@@ -1,0 +1,19 @@
+{
+  "name": "snapsolve-ai",
+  "version": "1.0.0",
+  "description": "SnapSolve AI - Production Build for Hostinger Web Apps",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.32.0",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

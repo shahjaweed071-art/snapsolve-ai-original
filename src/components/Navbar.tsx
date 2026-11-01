@@ -1,7 +1,8 @@
-import React from 'react';
-import { Sparkles, Sun, Moon, Globe, ShieldCheck, RefreshCw } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, Sun, Moon, Globe, ShieldCheck, RefreshCw, Server } from 'lucide-react';
 import { Language } from '../types';
 import { translations } from '../utils/translations';
+import { HostingerModal } from './HostingerModal';
 
 interface NavbarProps {
   language: Language;
@@ -20,6 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onReset,
   hasActiveSolution,
 }) => {
+  const [showHostingerModal, setShowHostingerModal] = useState(false);
   const t = translations[language];
 
   return (
@@ -98,6 +100,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
+          {/* Hostinger Deploy Button */}
+          <button
+            onClick={() => setShowHostingerModal(true)}
+            title="Download Hostinger Web Apps deployment package"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-blue-500/10 hover:from-purple-500/20 hover:to-blue-500/20 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800/60 transition active:scale-95 shadow-sm"
+          >
+            <Server className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+            <span className="hidden sm:inline">Hostinger Deploy</span>
+            <span className="sm:hidden">Deploy</span>
+          </button>
+
           {/* Theme Toggle */}
           <button
             onClick={onToggleTheme}
@@ -108,6 +121,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
         </div>
       </div>
+
+      <HostingerModal
+        isOpen={showHostingerModal}
+        onClose={() => setShowHostingerModal(false)}
+      />
     </header>
   );
 };
